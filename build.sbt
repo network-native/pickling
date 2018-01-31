@@ -13,7 +13,7 @@ def commonSettings = Seq(
     case "2.10" => Seq("-Xmax-classfile-name", "254")
     case _ => Seq()
   }),
-  organization in ThisBuild := "org.scala-lang.modules",
+  organization in ThisBuild := "com.networknative",
   organizationName in ThisBuild := "LAMP/EPFL",
   organizationHomepage in ThisBuild := Some(url("http://lamp.epfl.ch")),
   homepage in ThisBuild := Some(url("https://github.com/scala/pickling")),
@@ -82,9 +82,6 @@ lazy val core: Project = (project in file("core")).
         // if scala 2.11+ is used, quasiquotes are merged into scala-reflect
         case Some((2, scalaMajor)) if scalaMajor >= 11 =>
           Seq(parserCombinators)
-        // in Scala 2.10, quasiquotes are provided by macro-paradise
-        case Some((2, 10)) =>
-          Seq(compilerPlugin(macroParadise), quasiquotes)
       }
       baseDeps ++ additional
     }
@@ -104,9 +101,6 @@ lazy val macroTests: Project = (project in file("macro-test")).
         // if scala 2.11+ is used, quasiquotes are merged into scala-reflect
         case Some((2, scalaMajor)) if scalaMajor >= 11 =>
           Seq(parserCombinators)
-        // in Scala 2.10, quasiquotes are provided by macro-paradise
-        case Some((2, 10)) =>
-          Seq(compilerPlugin(macroParadise), quasiquotes)
       }
       baseDeps ++ additional
     }
